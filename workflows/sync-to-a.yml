@@ -16,6 +16,6 @@ jobs:
 
       - name: Push to Repo A
         run: |
-          git remote add target https://x-access-token:${{ secrets.TARGET_PAT }}@github.com/YOUR_ORG/repo-a.git
+          git remote add target https://x-access-token:${{ secrets.TARGET_PAT }}@github.com/kushalbhattarai23/A.git
           git push target main --force-with-lease
           echo "✅ Synced B → A"
