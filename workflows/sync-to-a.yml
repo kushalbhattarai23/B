@@ -1,0 +1,21 @@
+name: Sync B → A
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip-sync]') }}
+    steps:
+      - name: Checkout Repo B
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Repo A
+        run: |
+          git remote add target https://x-access-token:${{ secrets.TARGET_PAT }}@github.com/YOUR_ORG/repo-a.git
+          git push target main --force-with-lease
+          echo "✅ Synced B → A"
